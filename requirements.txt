@@ -2,6 +2,6 @@
 # This file lists all Python libraries your application depends on.
 # Render will automatically install these when deploying.
 
-Flask==2.3.3 # The web framework
-Pillow==10.0.0 # For image processing
-gunicorn==21.2.0 # A production-ready WSGI HTTP server for Python apps (Render uses this)
+Flask # The web framework
+Pillow # For image processing
+gunicorn # A production-ready WSGI HTTP server for Python apps (Render uses this)
