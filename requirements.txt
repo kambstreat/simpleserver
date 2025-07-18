@@ -3,5 +3,6 @@
 # Render will automatically install these when deploying.
 
 Flask # The web framework
+Flask-Cors
 Pillow # For image processing
 gunicorn # A production-ready WSGI HTTP server for Python apps (Render uses this)
