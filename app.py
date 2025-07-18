@@ -5,9 +5,11 @@ from flask import Flask, request, jsonify
 from PIL import Image # Pillow library for image processing
 import io # Used to handle image bytes in memory
 import os # To access environment variables like PORT
+from flask_cors import CORS
 
 # Initialize the Flask application
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # --- Dummy ML Model Function ---
 # In a real application, you would load and use a trained machine learning model here.
@@ -75,14 +77,7 @@ def predict():
             # return the same image in Grey
             image_bytes = Image.open(io.BytesIO(image_bytes)).convert('L')
 
-            #result = run_ml_model(image_bytes)
-            # how to return image_bytes as a response
-            img_byte_arr = io.BytesIO()
-            image_bytes.save(img_byte_arr, format='PNG')  # Save as PNG or any other format
-            img_byte_arr.seek(0)  # Move to the beginning of the Bytes
-            image_bytes = img_byte_arr.getvalue()  # Get the byte data
-            # Return the processed image bytes as a response
-            # Set the content type to image/png or image/jpeg as appropriate
+
             #return jsonify({"message": "Image processed successfully", "image_bytes": image_bytes}), 200
             return image_bytes, 200, {'Content-Type': 'image/png'}
 
