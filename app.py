@@ -72,8 +72,20 @@ def predict():
             # Read the image file into bytes
             image_bytes = image_file.read()
             # Pass the image bytes to our dummy ML model
-            result = run_ml_model(image_bytes)
-            return jsonify(result), 200
+            # return the same image in Grey
+            image_bytes = Image.open(io.BytesIO(image_bytes)).convert('L')
+
+            #result = run_ml_model(image_bytes)
+            # how to return image_bytes as a response
+            img_byte_arr = io.BytesIO()
+            image_bytes.save(img_byte_arr, format='PNG')  # Save as PNG or any other format
+            img_byte_arr.seek(0)  # Move to the beginning of the Bytes
+            image_bytes = img_byte_arr.getvalue()  # Get the byte data
+            # Return the processed image bytes as a response
+            # Set the content type to image/png or image/jpeg as appropriate
+            #return jsonify({"message": "Image processed successfully", "image_bytes": image_bytes}), 200
+            return image_bytes, 200, {'Content-Type': 'image/png'}
+
         except Exception as e:
             # Catch any errors during file reading or model execution
             return jsonify({"error": f"Failed to process image: {str(e)}"}), 500
