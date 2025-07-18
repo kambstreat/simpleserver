@@ -75,11 +75,15 @@ def predict():
             image_bytes = image_file.read()
             # Pass the image bytes to our dummy ML model
             # return the same image in Grey
-            image_bytes = Image.open(io.BytesIO(image_bytes)).convert('L')
-
-
+            grayscale_image = Image.open(io.BytesIO(image_bytes)).convert('L')
+            
+            # Convert the PIL Image back to bytes
+            img_io = io.BytesIO()
+            grayscale_image.save(img_io, 'PNG')
+            img_io.seek(0)
+            
             #return jsonify({"message": "Image processed successfully", "image_bytes": image_bytes}), 200
-            return image_bytes, 200, {'Content-Type': 'image/png'}
+            return img_io.getvalue(), 200, {'Content-Type': 'image/png'}
 
         except Exception as e:
             # Catch any errors during file reading or model execution
