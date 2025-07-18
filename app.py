@@ -5,9 +5,11 @@ from flask import Flask, request, jsonify
 from PIL import Image # Pillow library for image processing
 import io # Used to handle image bytes in memory
 import os # To access environment variables like PORT
+from flask_cors import CORS
 
 # Initialize the Flask application
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # --- Dummy ML Model Function ---
 # In a real application, you would load and use a trained machine learning model here.
